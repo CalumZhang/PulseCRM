@@ -1,0 +1,63 @@
+# Example "real" deployment config: ingest from Discord, classify with OpenAI,
+# ground in a Notion KB, alert to Slack, file tickets in Notion, and backfill
+# attachments. The platform adapters referenced here are STUBS in this repo —
+# implement them (see docs/adapters.md) or swap in your own before using.
+#
+# Secrets come from environment variables; never commit real tokens.
+
+source:
+  type: discord
+  options:
+    # token: read from DISCORD_BOT_TOKEN if omitted
+    guild_id: "YOUR_GUILD_ID"
+    channel_ids: ["YOUR_CHANNEL_ID"]
+
+classifier:
+  type: openai
+  options:
+    model: gpt-4o-mini
+    # api_key: read from OPENAI_API_KEY if omitted
+
+knowledge:
+  type: notion
+  options:
+    database_ids: ["YOUR_KB_DATABASE_ID"]
+  match_confidence_threshold: 0.80
+
+drafter:
+  type: llm
+  options:
+    model: gpt-4o-mini
+
+notifier:
+  type: slack
+  options:
+    channel: "YOUR_SLACK_CHANNEL_ID"
+
+ticket_sink:
+  type: notion
+  options:
+    database_id: "YOUR_BUG_TRACKER_DATABASE_ID"
+
+enrichers:
+  - type: attachment_sync
+    options:
+      max_bytes: 20971520
+
+grouping:
+  window_seconds: 60
+  max_group_size: 20
+
+gating:
+  confidence_threshold: 0.65
+  require_staff_action: true
+  ignored_authors: []          # add your staff user ids so they're invisible to the pipeline
+
+taxonomy:
+  intents:
+    - { name: purchase_interest, emoji: "💰", label: "Purchase Interest", actionable: true }
+    - { name: question,          emoji: "❓", label: "Question",          actionable: true }
+    - { name: bug_report,        emoji: "🐛", label: "Bug Report",        actionable: true }
+    - { name: feedback,          emoji: "💡", label: "Feedback",          actionable: true }
+    - { name: other,             emoji: "📌", label: "Other",             actionable: true }
+    - { name: noise,             emoji: "💬", label: "Noise",             actionable: false }

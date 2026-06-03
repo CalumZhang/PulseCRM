@@ -1,0 +1,11 @@
+# Pass/fail thresholds for `pulsecrm bench`. Tuned for the deterministic mock
+# classifier + the shipped golden data. A real LLM should clear these
+# comfortably (aim for ~0.80 precision per intent); raise the bar as your own
+# golden set and provider improve.
+
+classifier:
+  min_macro_f1: 0.60
+  min_noise_rejection: 0.70
+
+dedup:
+  min_f1: 0.55

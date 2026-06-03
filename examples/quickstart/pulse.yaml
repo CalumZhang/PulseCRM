@@ -1,0 +1,53 @@
+# PulseCRM quickstart — runs end-to-end with ZERO API keys.
+#
+#   pulsecrm run --config examples/quickstart/pulse.yaml
+#
+# It replays messages.jsonl, classifies with the deterministic mock classifier,
+# grounds troubleshooting in the local Markdown KB, prints emoji-tagged alerts to
+# the console, and appends tickets to out/tickets.jsonl.
+#
+# To use a real LLM instead, set classifier.type to `openai` and export
+# OPENAI_API_KEY (optionally set drafter.type to `llm` too).
+
+source:
+  type: file_replay
+  options:
+    path: messages.jsonl          # resolved relative to this file
+
+classifier:
+  type: mock                      # swap to: { type: openai, options: { model: gpt-4o-mini } }
+
+knowledge:
+  type: markdown
+  options:
+    path: kb
+  match_confidence_threshold: 0.30   # markdown overlap scores run low; tune per-KB
+
+drafter:
+  type: templated                 # swap to: llm
+
+notifier:
+  type: console
+
+ticket_sink:
+  type: jsonl
+  options:
+    path: out/tickets.jsonl
+
+grouping:
+  window_seconds: 120
+  max_group_size: 20
+
+gating:
+  confidence_threshold: 0.65
+  require_staff_action: true
+  ignored_authors: []             # e.g. your staff user ids
+
+taxonomy:
+  intents:
+    - { name: purchase_interest, emoji: "💰", label: "Purchase Interest", actionable: true }
+    - { name: question,          emoji: "❓", label: "Question",          actionable: true }
+    - { name: bug_report,        emoji: "🐛", label: "Bug Report",        actionable: true }
+    - { name: feedback,          emoji: "💡", label: "Feedback",          actionable: true }
+    - { name: other,             emoji: "📌", label: "Other",             actionable: true }
+    - { name: noise,             emoji: "💬", label: "Noise",             actionable: false }

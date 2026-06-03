@@ -1,0 +1,12 @@
+# Dedup golden set: are A and B about the SAME underlying issue? (generic scenarios)
+# Fields: a, b, same.
+{"a": "the editor crashes when I save", "b": "editor crashes on save", "same": true}
+{"a": "search results are slow to load", "b": "search results load slowly", "same": true}
+{"a": "dark mode toggle does nothing", "b": "dark mode button does nothing", "same": true}
+{"a": "notifications arrive twice", "b": "notifications arrive duplicated twice", "same": true}
+{"a": "cannot access my account", "b": "account access is broken", "same": true}
+{"a": "search is slow", "b": "export button missing", "same": false}
+{"a": "app crashes on launch", "b": "how much is the pro plan", "same": false}
+{"a": "dark mode request", "b": "login fails on android", "same": false}
+{"a": "cannot upload images", "b": "notifications are too loud", "same": false}
+{"a": "search results slow", "b": "search filter ideas", "same": false}

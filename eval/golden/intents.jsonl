@@ -1,0 +1,28 @@
+# Labeled golden set for classifier eval (fictional "acme-app", generic scenarios).
+# Fields: text, channel, expected_intent, should_alert (ground-truth gate decision).
+{"text": "the app crashes every time I open the editor", "channel": "support", "expected_intent": "bug_report", "should_alert": true}
+{"text": "acme-app is broken, the save button does nothing", "channel": "general", "expected_intent": "bug_report", "should_alert": true}
+{"text": "I keep getting an error when I upload a file", "channel": "support", "expected_intent": "bug_report", "should_alert": true}
+{"text": "the screen freezes on startup, totally stuck", "channel": "support", "expected_intent": "bug_report", "should_alert": true}
+{"text": "login is not working for me since this morning", "channel": "general", "expected_intent": "bug_report", "should_alert": true}
+{"text": "where can I purchase the pro plan?", "channel": "general", "expected_intent": "purchase_interest", "should_alert": true}
+{"text": "how much does acme-app cost for a team?", "channel": "general", "expected_intent": "purchase_interest", "should_alert": true}
+{"text": "is there a way to pre-order the new bundle?", "channel": "general", "expected_intent": "purchase_interest", "should_alert": true}
+{"text": "I want to buy the upgrade, what's the pricing", "channel": "general", "expected_intent": "purchase_interest", "should_alert": true}
+{"text": "how do I connect my account to acme-app?", "channel": "support", "expected_intent": "question", "should_alert": true}
+{"text": "how to export my data, can someone help", "channel": "support", "expected_intent": "question", "should_alert": true}
+{"text": "is there a way to change my username?", "channel": "support", "expected_intent": "question", "should_alert": true}
+{"text": "where do I find the settings page?", "channel": "support", "expected_intent": "question", "should_alert": true}
+{"text": "feedback: it would be nice if you add dark mode", "channel": "ideas", "expected_intent": "feedback", "should_alert": true}
+{"text": "please add keyboard shortcuts, that's my suggestion", "channel": "ideas", "expected_intent": "feedback", "should_alert": true}
+{"text": "you should add a way to bulk edit, would be great", "channel": "ideas", "expected_intent": "feedback", "should_alert": true}
+{"text": "hi, we'd love to discuss a partnership with your team", "channel": "general", "expected_intent": "other", "should_alert": true}
+{"text": "press inquiry: can someone from media relations reach out", "channel": "general", "expected_intent": "other", "should_alert": true}
+{"text": "lol that meme is hilarious", "channel": "general", "expected_intent": "noise", "should_alert": false}
+{"text": "good morning everyone!", "channel": "general", "expected_intent": "noise", "should_alert": false}
+{"text": "nice, looks cool", "channel": "general", "expected_intent": "noise", "should_alert": false}
+{"text": "happy friday all", "channel": "general", "expected_intent": "noise", "should_alert": false}
+{"text": "what worked for me was clearing the cache, you can try that", "channel": "support", "expected_intent": "noise", "should_alert": false}
+{"text": "thanks, that fixed it! appreciate the help", "channel": "support", "expected_intent": "noise", "should_alert": false}
+{"text": "I think you should be able to do it from settings", "channel": "support", "expected_intent": "noise", "should_alert": false}
+{"text": "the vibes in this community are great honestly", "channel": "general", "expected_intent": "noise", "should_alert": false}

@@ -1,0 +1,48 @@
+# Triager configuration — copy to config.yaml and fill in for your team.
+# Everything product-specific lives here; the SKILL.md / prompt.md stay generic.
+
+# Channels the triager monitors and the source value to stamp on tickets.
+channels:
+  - { name: "alerts",      source: "Bot" }            # where PulseCRM posts AlertEnvelopes
+  - { name: "team-triage", source: "Internal Triage" } # a staff channel of free-form reports
+
+# Which alert intents become tickets. By default only bug reports are ticketed;
+# other intents (purchase/question/feedback/other) are handled elsewhere.
+ticketable_intents: ["bug_report"]
+
+# Your ticket tracker. Implement the matching PulseCRM ticket_sink adapter, or
+# point an agent's tracker tool at this database/project.
+tracker:
+  type: "notion"            # notion | linear | jira | ...
+  database_id: "YOUR_DATABASE_ID"
+  open_filter: "regression = New"   # how to find still-open tickets for dedup
+
+# Priority scale (severity → label).
+priority:
+  P0: "Crash, data loss, security, or core flow blocked"
+  P1: "Major feature broken, many users, no workaround"
+  P2: "Partially broken, has a workaround, or few users"
+  P3: "Cosmetic / minor / edge case"
+
+# Generic component tags. Replace with YOUR product's areas.
+components: ["client", "backend", "integration", "billing", "docs", "other"]
+
+# Component-classification guide — FILL THIS IN with your own rules. This is the
+# generic replacement for any product-specific "is it component A or B?" guide.
+# Example (delete and replace):
+component_guide: |
+  Decide where the bug actually lives:
+  - "backend" when the broken thing IS the server/service/infra (a service is down,
+    a deploy/migration broke something, an internal dashboard is broken). Signals:
+    "service down", "restart", "deployment", "migration", "API failing", "infra".
+  - "client" when the user hits the problem THROUGH the app/UI, even if data comes
+    from the server (crash, wrong UI, notification issues, a feature not behaving).
+  - BOTH when the fix genuinely needs changes on both sides.
+  When in doubt, default to "client". Reserve "backend" for clear infra signals.
+
+# Optional: look up a reporter contact (e.g. phone/email) by handle.
+contact_lookup:
+  enabled: false
+  table_path: "intake.csv"   # a table with a handle column + a contact column
+  handle_column: "handle"
+  contact_column: "phone"

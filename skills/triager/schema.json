@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PulseCRM Ticket",
+  "description": "Generic ticket schema for the triager. Map these onto your tracker's fields. All vocabulary is intentionally product-neutral; customize the enums in config.example.yaml.",
+  "type": "object",
+  "required": ["title", "status", "source"],
+  "properties": {
+    "title": { "type": "string", "maxLength": 80, "description": "[Component/Area] Brief description." },
+    "body": { "type": "string", "description": "Summary + Original Messages (see SKILL.md template)." },
+    "priority": { "type": "string", "enum": ["P0", "P1", "P2", "P3"], "description": "Severity; scale defined in config." },
+    "component": { "type": "array", "items": { "type": "string" }, "description": "Generic component tags; list defined in config." },
+    "feature": { "type": "array", "items": { "type": "string" }, "description": "Product area(s) affected." },
+    "status": { "type": "string", "enum": ["Triage", "In Progress", "Done"], "default": "Triage" },
+    "source": { "type": "string", "enum": ["Bot", "Internal Triage"], "description": "Bot = from an AlertEnvelope; Internal Triage = staff channel." },
+    "reporter": { "type": "string", "description": "DisplayName (@handle) for Bot; staff name for Internal Triage." },
+    "channel": { "type": "string", "description": "Originating channel name." },
+    "permalink": { "type": "string", "format": "uri", "description": "Link to the original message." },
+    "kb_article": { "type": "string", "description": "Related knowledge-base article id/url, if matched." },
+    "regression": { "type": "string", "enum": ["New", "Fixed", "Regressed", "Re-fixed"], "default": "New", "description": "Set New on creation; lifecycle owned by the regression-classifier skill." },
+    "contact": { "type": "string", "description": "Optional reporter contact, filled by an enricher/lookup. Leave empty if unknown." },
+    "last_reported_date": { "type": "string", "format": "date", "description": "Date of the most recent report." }
+  },
+  "additionalProperties": true
+}

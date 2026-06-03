@@ -1,0 +1,1 @@
+"""ticket_sinks adapters."""
