@@ -21,5 +21,5 @@ class Adapter:
     adapter_type: ClassVar[str] = ""
 
     @classmethod
-    def build(cls, options: dict, ctx: "BuildContext"):  # noqa: ARG003
+    def build(cls, options: dict, ctx: BuildContext):  # noqa: ARG003
         return cls(**options)

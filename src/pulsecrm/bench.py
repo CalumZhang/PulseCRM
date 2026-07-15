@@ -13,7 +13,7 @@ from __future__ import annotations
 import asyncio
 import json
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -22,9 +22,9 @@ from pulsecrm import dedup as dedup_mod
 from pulsecrm import registry
 from pulsecrm.config import BuildContext, PulseConfig, load_config
 from pulsecrm.gating import Gate
+from pulsecrm.grouping import group_events
 from pulsecrm.models import AlertEnvelope, RawEvent
 from pulsecrm.ports.classifier import ClassificationContext
-from pulsecrm.grouping import group_events
 
 
 @dataclass
@@ -60,7 +60,7 @@ def _group_from_text(text: str, channel: str | None = None):
         author_id="bench_user",
         channel_name=channel,
         content=text,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     return group_events([ev])[0]
 

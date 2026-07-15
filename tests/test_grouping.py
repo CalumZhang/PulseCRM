@@ -1,9 +1,9 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from pulsecrm.grouping import group_events
 from pulsecrm.models import RawEvent
 
-BASE = datetime(2026, 6, 3, 10, 0, 0, tzinfo=timezone.utc)
+BASE = datetime(2026, 6, 3, 10, 0, 0, tzinfo=UTC)
 
 
 def _ev(author, secs, content="hi", eid=None):

@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import importlib
 from importlib import metadata
-from typing import Callable
+from collections.abc import Callable
 
 PORTS = (
     "source",

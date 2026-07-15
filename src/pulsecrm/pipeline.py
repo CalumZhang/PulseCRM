@@ -35,7 +35,7 @@ def _build(port: str, cfg, ctx: BuildContext):
     return cls.build(dict(cfg.options), ctx)
 
 
-def build_pipeline(config: PulseConfig, ctx: BuildContext) -> "Pipeline":
+def build_pipeline(config: PulseConfig, ctx: BuildContext) -> Pipeline:
     source = _build("source", config.source, ctx)
     classifier = _build("classifier", config.classifier, ctx)
     knowledge = _build("knowledge", config.knowledge, ctx)
