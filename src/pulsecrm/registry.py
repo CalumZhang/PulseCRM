@@ -10,8 +10,8 @@ register adapters without forking by exposing a callable through the
 from __future__ import annotations
 
 import importlib
-from importlib import metadata
 from collections.abc import Callable
+from importlib import metadata
 
 PORTS = (
     "source",
